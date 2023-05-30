@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<script src="./js/jquery.min.js"></script>
+
+<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="./css/bootstrap.min.css">
+
+<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="./js/bootstrap.min.js"></script>
+
+<style>
+    #SearchArea {
+        background-color: #f7f8f8;
+        width: 1200px;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+
+    #TableArea {
+        width: 1200px;
+        left: 0;
+        right: 0;
+        margin: auto;
+
+        padding-top: 50px;
+
+    }
+
+    .table {
+        border-collapse: separate;
+        border-spacing: 0px 10px;
+        text-align: left;
+    }
+</style>
+
+<body>
+    <div id="main">
+        <div id="SearchArea">
+            <div style="padding-top: 20px; text-align: center;">
+                <span class="form-inline form-item">
+                    <label for="hotel" class="control-label">酒店</label>
+                    <select name="s-hotel" id="s-hotel" class="form-control">
+                        <!-- 此处请通过JSTL 动态生成下拉框酒店列表 -->
+                        <option value="测试酒店1">测试酒店1</option>
+                        <option value="测试酒店2">测试酒店2</option>
+                        <option value="测试酒店3">测试酒店3</option>
+                        <option value="测试酒店4">测试酒店4</option>
+                        <option value="测试酒店5">测试酒店5</option>
+                    </select>
+                </span>
+
+
+                <span class="form-item">
+                    <span style="padding-right: 20px;"> <button class="btn btn-success">查找</button> </span>
+                    <span> <button class="btn btn-primary" onclick="goToAdd()">新增</button> </span>
+                </span>
+
+            </div>
+        </div>
+
+        <div id="TableArea">
+            <table class="table" id='table'>
+                <tr>
+                    <th>房间ID</th>
+                    <th>房型名称</th>
+                    <th>房间数量</th>
+                    <th>楼层</th>
+                    <th>面积</th>
+                    <th>加床</th>
+                    <th>是否有窗</th>
+                    <th>售价</th>
+                    <th>操作</th>
+                </tr>
+
+
+                <!-- 请使用JSTL 或 ajax 将查询得到的结果生成在这里 -->
+
+            </table>
+
+        </div>
+    </div>
+</body>
+
+<script>
+
+    // ajax 实现方法 若不用 请注释掉 init()
+
+    const houseStyleArr = [
+        {
+            houseStyleId: '1001',
+            houseStyleName: '总统套房',
+            houseStyleCount: '10',
+            houseStyleLocate: '5',
+            houseStyleSpace: '125㎡',
+            houseStyleAddBed: '不可加床',
+            houseStyleWindow: '有窗',
+            houseStylePrice: '1288'
+        },
+        {
+            houseStyleId: '1002',
+            houseStyleName: '标准间',
+            houseStyleCount: '10',
+            houseStyleLocate: '5',
+            houseStyleSpace: '25㎡',
+            houseStyleAddBed: '不可加床',
+            houseStyleWindow: '有窗',
+            houseStylePrice: '688'
+
+        },
+        {
+            houseStyleId: '1003',
+            houseStyleName: '行政标准间',
+            houseStyleCount: '10',
+            houseStyleLocate: '5',
+            houseStyleSpace: '45㎡',
+            houseStyleAddBed: '不可加床',
+            houseStyleWindow: '有窗',
+            houseStylePrice: '888'
+
+        }
+    ]
+
+
+    function loadArray(arr) {
+        arr.forEach(element => {
+            let str = `
+                <tr>
+                    <td>${element.houseStyleId}</td>
+                    <td>${element.houseStyleName}</td>
+                    <td>${element.houseStyleCount}</td>
+                    <td>${element.houseStyleLocate}</td>
+                    <td>${element.houseStyleSpace}</td>
+                    <td>${element.houseStyleAddBed}</td>
+                    <td>${element.houseStyleWindow}</td>
+                    <td>￥ ${element.houseStylePrice}</td>
+                    <td>
+                        <span>
+                            <button style='margin-right:15px;' hsId='${element.houseStyleId}' class='btn btn-primary' onclick="goToEdit(this)">修改</button>
+                        </span>
+
+                        <span>
+                            <button  hsId='${element.houseStyleId}' class='btn btn-success'>图集管理</button>
+                        </span>
+                    </td>
+                <tr>
+            `
+            $("#table").append(str);
+        });
+    }
+
+    function goToEdit(obj) {
+        // 在修改页使用ajax的方式获取数据，若使用JSTL请跳转至对应的Servlet页面
+        window.location.href = 'edit_house_style.html?id=' + obj.getAttribute("hsId");
+    }
+
+    function goToAdd() {
+        window.location.href = 'add_house_style.html';
+    }
+
+
+    function init() {
+        $.ajax({
+            method: '',
+            url: '',
+            data: {},
+            success: function (resp) {
+                //将从servlet中得到的json 数据赋值给 houseStyleArr
+            }
+        })
+        loadArray(houseStyleArr);
+    }
+
+
+    init()
+
+
+
+
+
+
+</script>
+
+</html>

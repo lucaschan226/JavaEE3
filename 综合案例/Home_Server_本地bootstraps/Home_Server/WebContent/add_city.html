@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>添加酒店信息</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <script src="./js/jquery.min.js"></script>
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="./js/bootstrap.min.js"></script>
+</head>
+
+<style>
+    #main {
+        margin-top: 20px;
+    }
+
+    #panel {
+        width: 600px;
+        /* 使得面板居中的Css */
+        margin: auto;
+        position: absolute;
+        left: 0;
+        right: 0;
+
+    }
+
+    .hbtn {
+        text-align: right;
+    }
+</style>
+
+<body>
+    <div id="main">
+        <div class="panel panel-default" id="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">添加城市</h3>
+            </div>
+            <div class="panel-body">
+                <!-- 网页传统方式提交表单： 请在此填写需要提交到的页面 以及请求方式 -->
+                <form action="" method="">
+                    <div class="form-area form-group">
+                        <div>
+                            <span>城市名称</span>
+                            <input type="text" name="cname" id="cname" class="form-control">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="panel-footer">
+                <div class="hbtn">
+                    <button class="btn btn-default" type="submit" onclick="go()">返回</button>
+
+                    <button style="margin-left: 10px;" class="btn btn-primary" type="submit"
+                        onclick="dosubmit()">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+
+    function go() {
+        window.history.go(-1);
+    }
+
+</script>
+
+</html>

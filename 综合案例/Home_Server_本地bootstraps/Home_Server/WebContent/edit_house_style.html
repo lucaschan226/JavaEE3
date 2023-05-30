@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>添加酒店信息</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <script src="./js/jquery.min.js"></script>
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="./js/bootstrap.min.js"></script>
+</head>
+
+<style>
+    #main {
+        margin-top: 20px;
+    }
+
+    #panel {
+        width: 600px;
+        /* 使得面板居中的Css */
+        margin: auto;
+        position: absolute;
+        left: 0;
+        right: 0;
+
+    }
+
+    .hbtn {
+        text-align: right;
+    }
+</style>
+
+<body>
+    <div id="main">
+        <div class="panel panel-default" id="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">修改房型</h3>
+            </div>
+            <div class="panel-body">
+                <!-- 网页传统方式提交表单： 请在此填写需要提交到的页面 以及请求方式 -->
+                <form action="" method="">
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>房型编号</span>
+                            <input type="text" name="houseStyleId" id="houseStyleId" class="form-control" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>房型名称</span>
+                            <input type="text" name="houseStyleName" id="houseStyleName" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>房间数量</span>
+                            <input type="text" name="houseStyleCount" id="houseStyleCount" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>楼层</span>
+                            <input type="text" name="houseStyleLocate" id="houseStyleLocate" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>面积</div>
+                        <div class="input-group">
+                            <input type="number" class="form-control" placeholder="" aria-describedby="basic-addon2"
+                                id="houseStyleSpace" name="houseStyleSpace">
+                            <span class="input-group-addon" id="basic-addon2">㎡</span>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>床型</span>
+                            <select id="houseStyleType" name='houseStyleType' class="form-control">
+                                <option>大床</option>
+                                <option>双床</option>
+                                <option>单人床</option>
+                                <option>多张床</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>加床</span>
+                            <input type="text" name="houseStyleAddBed" id="houseStyleAddBed" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>是否有窗</span>
+                            <select id="houseStyleHasWindow" name='houseStyleHasWindow' class="form-control">
+                                <option>无窗</option>
+                                <option>有窗</option>
+                                <option>部分有窗</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>最大入住人数</span>
+                            <input type="text" name="houseStyleMaxPeople" id="houseStyleMaxPeople" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>网络连接</span>
+                            <select id="houseStyleInternet" name='houseStyleInternet' class="form-control">
+                                <option value="1">免费</option>
+                                <option value="2">收费</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>无烟信息</span>
+                            <select id="houseStyleSmoke" name='houseStyleSmoke' class="form-control">
+                                <option value="1">可吸烟</option>
+                                <option value="2">全禁烟</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>关键信息</span>
+                            <input type="text" name="houseStyleKeyInfo" id="houseStyleKeyInfo" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>售价</div>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon1">￥</span>
+                            <input type="number" class="form-control" placeholder="售价" aria-describedby="basic-addon1"
+                                name="houseStylePrice" id="houseStylePrice">
+                        </div>
+                    </div>
+
+
+
+
+
+
+            </div>
+            </form>
+            <div class="panel-footer">
+                <div class="hbtn">
+                    <button class="btn btn-default" type="submit" onclick="go()">返回</button>
+
+                    <button style="margin-left: 10px;" class="btn btn-danger" onclick="dodelete()">删除</button>
+
+                    <button style="margin-left: 10px;" class="btn btn-primary" type="submit">修改</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+<script>
+
+    function go() {
+        window.history.go(-1);
+    }
+
+</script>
+
+</html>

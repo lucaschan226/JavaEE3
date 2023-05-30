@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>品牌管理</title>
+</head>
+
+<script src="./js/jquery.min.js"></script>
+
+<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="./css/bootstrap.min.css">
+
+<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="./js/bootstrap.min.js"></script>
+
+<style>
+    #SearchArea {
+        background-color: #f7f8f8;
+        padding-bottom: 30px;
+        width: 1400px;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+
+    #TableArea {
+        width: 1400px;
+        left: 0;
+        right: 0;
+        margin: auto;
+
+        padding-top: 50px;
+
+    }
+
+    .table {
+        border-collapse: separate;
+        border-spacing: 0px 10px;
+        text-align: left;
+    }
+
+    tr {
+        border-bottom: 1px sold black;
+    }
+
+    .form-item {
+        margin: 25px;
+    }
+</style>
+
+
+<body>
+    <div id="main">
+        <div id="SearchArea">
+            <div style="padding-top: 20px;">
+                <span class="form-inline form-item">
+                    <label for="city" class="control-label">订单号</label>
+                    <input type="text" name="s-bId" id="s-oId" class="form-control">
+                </span>
+
+                <span class="form-inline form-item">
+                    <label for="city" class="control-label">酒店</label>
+                    <select name="s-hname" class="form-control">
+                        <!-- 请使用JSTL 在此输出所有的酒店名称 -->
+                        <option value="">测试酒店1</option>
+                    </select>
+                </span>
+
+                <span class="form-inline form-item">
+                    <label for="s-hname" class="control-label">联系人</label>
+                    <input type="text" name="s-bName" id="s-oName" class="form-control">
+                </span>
+
+
+                <span class="form-item">
+                    <span style="padding-right: 20px;"> <button class="btn btn-success">查找订单</button> </span>
+                </span>
+            </div>
+        </div>
+
+
+
+        <div id="TableArea">
+            <table class="table">
+                <tr style="text-align: center;">
+                    <th style="width: 200px;">订单号</th>
+                    <th style="width: 100px;">酒店</th>
+                    <th style="width: 100px;">房型</th>
+                    <th style="width: 150px;">入住</th>
+                    <th style="width: 150px;">离店</th>
+                    <th style="width: 100px;">姓名</th>
+                    <th style="width: 200px;">电话</th>
+                    <th style="width: 200px;">状态</th>
+                    <th>操作</th>
+                </tr>
+
+                <!-- 若使用JSTL 则可在此进行后续添加 请忽略script中的内容 -->
+
+
+            </table>
+        </div>
+
+
+    </div>
+</body>
+
+<script>
+
+    // 若使用ajax请求servlet，得到数组类型的array，使用loadAddr方法装载至表格
+
+
+    let orderArr = [
+        {
+            orderId: '10002',
+            hotelId: '1002',
+            houseStyleId: '05',
+            checkInDate: '10-20',
+            checkOutDate: '10-21',
+            contactUserName: '王镭树',
+            phone: '18810000000',
+            status: '进行中'
+        },
+        {
+            orderId: '10002',
+            hotelId: '1002',
+            houseStyleId: '05',
+            checkInDate: '10-20',
+            checkOutDate: '10-21',
+            contactUserName: '王镭树',
+            phone: '18810000000',
+            status: '进行中'
+
+        }
+    ]
+
+
+
+    function loadArr(arr) {
+        arr.forEach(element => {
+            let str = `
+                <tr>
+                    <td>${element.orderId}</td>
+                    <td>${element.hotelId}</td>
+                    <td>${element.houseStyleId}<img src='' width='100px' width='30px''</td>
+                    <td>${element.checkInDate}</td>
+                    <td>${element.checkOutDate}</td>
+                    <td>${element.contactUserName}</td>
+                    <td>${element.phone}</td>
+                    <td>${element.status}</td>
+                    <td>
+                        <button bId='${element.orderId}' onclick='toEditOrder(this)'  class='btn btn-primary'>修改</button>
+
+                        <button style="margin-left:20px" bId='${element.orderId}' onclick=''  class='btn btn-danger'>删除</button>
+                    </td>
+                </tr>
+            `
+            $(".table").append(str);
+        });
+    }
+
+    function toAddBand() {
+
+        window.location.href = 'add_band.html'
+    }
+
+    function toEditOrder(obj) {
+        //此处将以参数的方式跳转到品牌详情界面，并在该页面以ajax的方式请求数据
+        //若使用JSTl 请在此处跳转到对应的servlet页面，并存储session后跳转到详情页面
+        window.location.href = 'edit_order.html?id=' + obj.getAttribute('bId');
+    }
+
+
+    function init() {
+        $.ajax({})
+        loadArr(orderArr);
+    }
+
+    init()
+
+
+
+</script>
+
+
+</html>

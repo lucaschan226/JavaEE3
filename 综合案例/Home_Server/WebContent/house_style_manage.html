@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<script
+src="https://code.jquery.com/jquery-3.4.1.min.js"
+integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+crossorigin="anonymous"></script>
+<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+<style>
+      #SearchArea{
+        background-color: #f7f8f8;
+        width: 1200px;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+    #TableArea{
+        width: 1200px;
+        left: 0;
+        right: 0;
+        margin: auto;
+
+        padding-top: 50px;
+
+    }
+
+    .table{
+        border-collapse: separate;
+        border-spacing: 0px 10px;
+        text-align: left;
+    }
+</style>
+
+<body>
+    <div id="main">
+        <div id="SearchArea">
+            <div style="padding-top: 20px; text-align: center;">
+                <span class="form-inline form-item">
+                    <label for="hotel" class="control-label">酒店</label>
+                    <select name="s-hotel" id="s-hotel" class="form-control">
+                        <!-- 此处请通过JSTL 动态生成下拉框酒店列表 -->
+                    </select>
+                </span>
+
+
+                <span class="form-item">
+                    <span style="padding-right: 20px;"> <button class="btn btn-success" onclick="findByCondition()">查找</button> </span>
+                    <span> <button class="btn btn-primary" onclick="goToAdd()">新增</button> </span>
+                </span>
+                
+            </div>
+        </div>
+
+        <div id="TableArea">
+            <table class="table" id='table'>
+                <tr>
+                    <th>房间ID</th>
+                    <th>房型名称</th>
+                    <th>房间数量</th>
+                    <th>楼层</th>
+                    <th>面积</th>
+                    <th>加床</th>
+                    <th>是否有窗</th>
+                    <th>售价</th>
+                    <th>操作</th>
+                </tr>
+
+
+                <!-- 请使用JSTL 或 ajax 将查询得到的结果生成在这里 -->
+
+            </table>
+
+        </div>
+    </div>
+</body>
+
+<script>
+
+   $(function(){
+	   $.ajax({
+           url:'HotelServlet?cmd=all',
+           method:'get',
+           success:function(resp){			
+               var shotel = $('#s-hotel');
+               $.each(resp,function(index,item){
+                   htmlStr = '';
+                   htmlStr += '<option  value="' + item.hotelname + '">' + item.hotelname + '</option>';
+                   shotel.append(htmlStr);
+               });
+
+           },
+           error:function(){
+
+           }
+       })
+	});
+    // ajax 实现方法 若不用 请注释掉 init()
+
+    let houseStyleArr=[
+        {
+            housestyleid:'1001',
+            housestylename:'总统套房',
+            housestylecount:'10',
+            housestylelocate:'5',
+            housestylespace:'125㎡',
+            housestyleaddbed:'不可加床',
+            housestylewindow:'有窗',
+            housestyleprice:'1288'
+        },
+        {
+            housestyleid:'1002',
+            housestylename:'标准间',
+            housestylecount:'10',
+            housestylelocate:'5',
+            housestylespace:'25㎡',
+            housestyleaddbed:'不可加床',
+            housestylewindow:'有窗',
+            housestyleprice:'688'
+
+        },
+        {
+            housestyleid:'1003',
+            housestylename:'行政标准间',
+            housestylecount:'10',
+            housestylelocate:'5',
+            housestylespace:'45㎡',
+            housestyleaddbed:'不可加床',
+            housestylewindow:'有窗',
+            housestyleprice:'888'
+
+        }
+    ]
+
+
+    function loadArr(arr){   
+    	let str;
+        arr.forEach(element => {
+            str=`
+                <tr>
+                    <td>${element.housestyleid}</td>
+                    <td>${element.housestylename}</td>
+                    <td>${element.housestylecount}</td>
+                    <td>${element.housestylelocate}</td>
+                    <td>${element.housestylespace}</td>
+                    <td>${element.housestyleaddbed}</td>
+                    <td>${element.housestylewindow}</td>
+                    <td>￥ ${element.housestyleprice}</td>
+                    <td>
+                        <span>
+                            <button style='margin-right:15px;' hsId='${element.housestyleid}' class='btn btn-primary' onclick="goToEdit(this)">修改</button>
+                        </span>
+                        <span>
+                            <button  hsId='${element.housestyleid}' class='btn btn-success'>图集管理</button>
+                        </span>
+                    </td>
+                </tr>
+            `
+
+            $("#table").append(str);
+           
+        });
+        
+    }
+
+    function loadArrCondition(arr){   
+    	$("#table  tr:not(:first)").empty()
+    	let str;
+        arr.forEach(element => {
+            str=`
+                <tr border=0>
+                    <td>${element.housestyleid}</td>
+                    <td>${element.housestylename}</td>
+                    <td>${element.housestylecount}</td>
+                    <td>${element.housestylelocate}</td>
+                    <td>${element.housestylespace}</td>
+                    <td>${element.housestyleaddbed}</td>
+                    <td>${element.housestylewindow}</td>
+                    <td>￥ ${element.housestyleprice}</td>
+                    <td>
+                        <span>
+                            <button style='margin-right:15px;' hsId='${element.housestyleid}' class='btn btn-primary' onclick="goToEdit(this)">修改</button>
+                        </span>
+                        <span>
+                            <button  hsId='${element.housestyleid}' class='btn btn-success'>图集管理</button>
+                        </span>
+                    </td>
+                </tr>
+            `
+              $("#table tr:eq(0)").after(str);
+              //$("#table tr:eq(0)").append(str);       
+              //$.parser.parse($('#table'));               
+        });
+        
+    }
+
+    function goToEdit(obj){
+        // 在修改页使用ajax的方式获取数据，若使用JSTL请跳转至对应的Servlet页面
+        window.location.href="edit_house_style.html?id="+obj.getAttribute("hsId")+"&sHotel="+$("#s-hotel").val();
+    }
+
+    function goToAdd(){
+        window.location.href="add_house_style.jsp?&sHotel="+$("#s-hotel").val();
+    }
+
+    function findByCondition()
+    {
+    	console.log("findByC:");
+    	$.ajax({
+             url:"HouseStyleServlet?cmd=findByCondition&s-hotel="+$("#s-hotel").val(),
+             method:'get',
+             success:function(resp){
+ 			 console.log("这是从Servlet中获取到的数据："+resp)
+ 			 // 将从Servlet中取到的数组json 赋值给housestyleArr
+ 			 houseStyleArr=resp		
+ 			 // 加载数组
+ 			 loadArrCondition(houseStyleArr);				
+             },
+             error:function(){
+
+             }
+         })
+    }
+    function init(){
+		console.log("开始初始化数据了！")
+        $.ajax({
+            url:'HouseStyleServlet?cmd=all',
+            method:'get',
+            success:function(resp){
+			
+			console.log("这是从Servlet中获取到的数据："+resp)
+			 // 将从Servlet中取到的数组json 赋值给housestyleArr
+			 houseStyleArr=resp		
+			 // 加载数组
+			 loadArr(houseStyleArr);	
+			
+            },
+            error:function(){
+
+            }
+        })
+    }
+    
+   init();
+
+</script>
+
+</html>

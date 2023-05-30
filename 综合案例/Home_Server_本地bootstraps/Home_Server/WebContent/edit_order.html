@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>修改酒店信息</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <script src="./js/jquery.min.js"></script>
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="./js/bootstrap.min.js"></script>
+</head>
+
+<style>
+    #main {
+        margin-top: 20px;
+    }
+
+    #panel {
+        width: 600px;
+        /* 使得面板居中的Css */
+        margin: auto;
+        position: absolute;
+        left: 0;
+        right: 0;
+
+    }
+
+    .hbtn {
+        text-align: right;
+    }
+</style>
+
+
+<body>
+    <div id="main">
+        <div class="panel panel-default" id="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">修改订单</h3>
+            </div>
+            <div class="panel-body">
+
+                <!-- 请求方式 如：edit_hotel.html?id=123  -->
+
+
+                <form action="" method="">
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>订单id</span>
+                            <input type="text" name="id" id="id" class="form-control" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>订单号</span>
+                            <input type="text" name="order_number" id="order_number" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>入店时间</span>
+                            <input type="text" name="start_time" id="start_time" class="form-control">
+                        </div>
+                    </div>
+
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>离店时间</span>
+                            <input type="text" name="end_time" id="end_time" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>创建时间</span>
+                            <input type="text" name="create_time" id="create_time" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>酒店ID</span>
+                            <input type="text" name="hotel_id" id="hotel_id" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>售卖房型ID</span>
+                            <input type="text" name="room_selling_id" id="room_selling_id" class="form-control">
+                        </div>
+                    </div>
+
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>入住人姓名</span>
+                            <input type="text" name="name" id="name" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>手机号</span>
+                            <input type="text" name="telephone" id="telephone" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>用户唯一标识</span>
+                            <input type="text" name="openid" id="openid" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>订单状态</span>
+                            <input type="text" name="order_state" id="order_state" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>押金</span>
+                            <input type="text" name="deposit" id="deposit" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>应付金额</span>
+                            <input type="text" name="payable" id="payable" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>实付金额</span>
+                            <input type="text" name="payment" id="payment" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>退款理由</span>
+                            <input type="text" name="refund_reason" id="refund_reason" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>拒绝退款理由</span>
+                            <input type="text" name="refuse_refund_reason" id="refuse_refund_reason"
+                                class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>退押金金额</span>
+                            <input type="text" name="refund_deposit" id="refund_deposit" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>扣押金理由</span>
+                            <input type="text" name="drefund_eposit_reason" id="drefund_eposit_reason"
+                                class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>申请退款时间</span>
+                            <input type="text" name="refund_time" id="refund_time" class="form-control">
+                        </div>
+                    </div>
+
+
+
+                </form>
+            </div>
+
+            <div class="panel-footer">
+                <div class="hbtn">
+                    <button class="btn btn-default" type="submit" onclick="go()">返回</button>
+
+                    <button style="margin-left: 10px;" class="btn btn-danger" onclick="dodelete()">删除</button>
+
+                    <!-- 若使用ajax的方式进行提交 需要去掉type="submit"！！ -->
+                    <button style="margin-left: 10px;" class="btn btn-primary" type="submit"
+                        onclick="dosubmit()">修改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+
+    init();
+
+    function go() {
+        window.history.go(-1);
+    }
+
+    function dosubmit() {
+
+    }
+
+    function getUrlParam(name) { //封装方法
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg); //匹配目标参数
+        if (r != null) return unescape(r[2]);
+        return null; //返回参数值
+    }
+
+    function init() {
+
+        // 测试使用
+        document.getElementById("id").value = getUrlParam("id");
+
+
+        //从网址中获得携带的参数 id 
+        let id = getUrlParam("id");
+        $.ajax({
+            method: '',
+            url: '',
+            data: {},
+            success: function (resp) {
+                //将从servlet中获得的数据 填写到网页的input表单中
+
+            }
+        })
+    }
+
+    function dodelete() {
+        // 在此处填写删除逻辑
+        //跳转 至servlet 或 ajax方式
+    }
+
+    function submit() {
+        $.ajax({
+            method: '',
+            url: '',
+            data: {
+                // 向服务器发送的数据
+                // id:getUrlParam("id")
+            },
+            success: function () {
+
+            }
+        })
+    }
+
+
+</script>
+
+</html>

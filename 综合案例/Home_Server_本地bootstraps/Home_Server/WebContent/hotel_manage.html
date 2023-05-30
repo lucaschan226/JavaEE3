@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>酒店管理</title>
+</head>
+<script src="./js/jquery.min.js"></script>
+
+<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="./css/bootstrap.min.css">
+
+<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="./js/bootstrap.min.js"></script>
+
+<style>
+    #SearchArea {
+        background-color: #f7f8f8;
+        width: 1200px;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+
+    #TableArea {
+        width: 1200px;
+        left: 0;
+        right: 0;
+        margin: auto;
+
+        padding-top: 50px;
+    }
+
+    .table {
+        border-collapse: separate;
+        border-spacing: 0px 10px;
+    }
+
+
+
+    .form-item {
+        margin: 25px;
+    }
+</style>
+
+
+
+<!--*************** 此页面 建议使用 Jquery + Ajax 实现*************** -->
+
+<body>
+    <div id="main">
+        <div id="SearchArea">
+            <div style="padding-top: 20px;">
+                <span class="form-inline form-item">
+                    <label for="city" class="control-label">城市区域</label>
+                    <select name="s-hcity" id="s-hcity" class="form-control">
+                        <!-- 此处请通过JSTL 动态生成下拉框城市列表 -->
+                        <option value="北京">北京</option>
+                        <option value="上海">上海</option>
+                        <option value="广州">广州</option>
+                        <option value="深圳">深圳</option>
+                        <option value="天津">天津</option>
+                    </select>
+                </span>
+
+                <span class="form-inline form-item">
+                    <label for="s-hname" class="control-label">酒店名称</label>
+                    <input type="text" name="s-hname" id="s-hname" class="form-control">
+                </span>
+
+                <span class="form-inline form-item">
+                    <label for="s-hId" class="control-label">酒店ID</label>
+                    <input type="text" name="s-hId" id="s-hId" class="form-control">
+                </span>
+            </div>
+
+            <div style="margin-top: 20px;padding-bottom: 20px;">
+
+                <span class="form-inline form-item">
+                    <label for="city" class="control-label">售卖状态</label>
+                    <select name="s-hstatus" id="s-hstatus" class="form-control">
+                        <option>在售</option>
+                        <option>停售</option>
+                    </select>
+                </span>
+
+
+                <span class="form-item">
+                    <span style="padding-right: 20px;"> <button class="btn btn-success">查询酒店</button> </span>
+                    <span> <button class="btn btn-primary" onclick="toAddHotel()">新增酒店</button> </span>
+                </span>
+            </div>
+
+        </div>
+
+
+        <div id="TableArea">
+            <table class="table">
+                <tr>
+                    <th>酒店ID</th>
+                    <th>酒店名称</th>
+                    <th>城市</th>
+                    <th>品牌</th>
+                    <th>星级</th>
+                    <th>售卖状态</th>
+                    <th>最晚预定时间</th>
+                    <th>最晚确定时间</th>
+                    <th>操作</th>
+                </tr>
+
+            </table>
+
+
+
+        </div>
+
+
+    </div>
+
+
+    <script>
+
+
+        // 此数组为列表中显示数据，调用loadArr方法进行刷新
+        let hotelArr = [
+
+            {
+                hotelId: '1001',
+                hotelName: '香格里拉酒店',
+                hotelCity: '北京',
+                hotelBand: '香格里拉',
+                hotelStar: '5星',
+                hotelStatus: '在售',
+                hotelOrderTime: '21:00',
+                hotelConfirmTime: '22:00'
+            }
+
+
+        ]
+
+        const loadArr = function (arr) {
+            arr.forEach(element => {
+                let str = `     
+                    <tr>
+                        <td>${element.hotelId}</td>
+                        <td>${element.hotelName}</td>
+                        <td>${element.hotelCity}</td>
+                        <td>${element.hotelBand}</td>
+                        <td>${element.hotelStar}</td>
+                        <td>${element.hotelStatus}</td>
+                        <td>${element.hotelOrderTime}</td>
+                        <td>${element.hotelConfirmTime}</td>
+                        <td>
+                            <button class="btn btn-primary" type="button" hid="${element.hotelId}" onclick="toManageHotel(this)">管理</button>
+                        </td>
+                    </tr>
+                `;
+                $(".table").append(str);
+
+            });
+        }
+
+        const init = function () {
+            $.ajax({
+                url: '',
+                method: '',
+                data: {
+
+                },
+                onSuccess: function (resp) {
+                    // 将从Servlet中取到的数组json 赋值给 hotelArr
+
+                },
+                onError: function () {
+
+                }
+            })
+
+        }
+
+        // 加载数组
+        loadArr(hotelArr);
+
+
+        function toAddHotel() {
+            window.location.href = "add_hotel.html";
+        }
+
+        function toManageHotel(obj) {
+            window.location.href = "edit_hotel.html?id=" + obj.getAttribute('hid');
+        }
+
+    </script>
+</body>
+
+</html>

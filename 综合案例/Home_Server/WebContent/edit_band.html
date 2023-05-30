@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>添加酒店信息</title>
+<script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous"></script>   
+ <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+ 
+ <!-- 对话框  -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/css/bootstrap-dialog.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap3-dialog/1.34.7/js/bootstrap-dialog.min.js"></script>
+    
+</head>
+
+<style>
+
+    #main{
+        margin-top: 20px;
+    }
+
+    #panel{
+        width: 600px;
+        /* 使得面板居中的Css */
+        margin: auto;
+        position: absolute;
+        left: 0;
+        right: 0;
+
+    }
+
+    .hbtn{
+        text-align: right;
+    }
+</style>
+
+<body>
+    <div id="main">
+        <div class="panel panel-default" id="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">修改品牌</h3>
+            </div>
+            <div class="panel-body">
+            <!-- 网页传统方式提交表单： 请在此填写需要提交到的页面 以及请求方式 -->
+             <form enctype="multipart/form-data" id="hform" name="hform">
+
+                <div class="form-area form-group" >
+                    <div>
+                        <span>品牌编号</span>
+                        <input type="text" name="bId" id="bId" class="form-control" readonly>
+                    </div>
+                </div>
+
+                <div class="form-area form-group" >
+                    <div>
+                        <span>品牌名称</span>
+                        <input type="text" name="bname" id="bname" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-area form-group" >
+                    <div>
+                        <span>品牌图标</span>
+                        <input type="file"  name="bIcon" id="bIcon">
+                    </div>
+                </div>
+                    
+                <div class="form-area form-group" >
+                    <div>
+                        <span>品牌详情</span>
+                        <input type="text" name="bDetail" id="bDetail" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-area form-group" >
+                    <div>
+                        <span>备注</span>
+                        <input type="text" name="bRemark" id="bRemark" class="form-control">
+                    </div>
+                </div>
+
+                
+            </form>
+            </div>
+
+            <div class="panel-footer">
+                <div class="hbtn" >
+                    <button class="btn btn-default" type="submit" onclick="go()">返回</button>
+
+                    <button style="margin-left: 10px;" class="btn btn-danger"  onclick="dodelete()">删除</button>
+
+                    <button style="margin-left: 10px;" class="btn btn-primary" onclick="doedit()">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+
+
+     function go(){
+        window.history.go(-1);
+    }
+
+   
+    function getUrlParam(name) { //封装方法
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg); //匹配目标参数
+        if(r != null) return unescape(r[2]);
+        return null; //返回参数值
+    }
+
+    function init(){
+
+        // 测试使用
+        document.getElementById("bId").value=getUrlParam("id");
+
+        //从网址中获得携带的参数 id 
+        let id = getUrlParam("id"); 
+        $.ajax({
+       	 url:'BandServlet?cmd=find'+"&bandid="+id,
+            method:'get',
+           success:function(resp){
+               //将从servlet中获得的数据 填写到网页的input表单中
+				console.log("这是从Servlet中获取到的数据："+resp[0]);
+				document.getElementById("bname").value=resp[0].bandname;
+				//document.getElementById("bIcon").value=resp[0].bandicon;
+				document.getElementById("bDetail").value=resp[0].banddetail;
+				document.getElementById("bRemark").value=resp[0].bandremark;
+           }       
+       })
+    }
+
+    function submit(){
+        $.ajax({
+            method:'',
+            url:'',
+            data:{
+                // 向服务器发送的数据
+                // id:getUrlParam("id")
+            },
+            success:function(){
+
+            }
+        })
+    }
+    
+    function dodelete(){
+    	// 在此处填写删除逻辑
+        //跳转 至servlet 或 ajax方式
+            let id = getUrlParam("id"); 
+         	BootstrapDialog.confirm({
+    	    title : '确认',
+    	    message : "确认要删除？",
+    	    type : BootstrapDialog.TYPE_WARNING, // <-- Default value is
+    	    // BootstrapDialog.TYPE_PRIMARY
+    	    closable : true, // <-- Default value is false，点击对话框以外的页面内容可关闭
+    	    draggable : true, // <-- Default value is false，可拖拽
+    	    btnCancelLabel : '取消', // <-- Default value is 'Cancel',
+    	    btnOKLabel : '确定', // <-- Default value is 'OK',
+    	    btnOKClass : 'btn-warning', // <-- If you didn't specify it, dialog type
+    	    size : BootstrapDialog.SIZE_SMALL,
+    	    // 对话框关闭的时候执行方法
+    	    onhide : function () {
+    	        
+    	    },
+    	    callback : function(result) {
+    	        // 点击确定按钮时，result为true
+    	        if (result) {
+    	            // 执行方法
+    	        	$.ajax({
+    	                url: 'BandServlet?cmd=del&bandid='+id,
+    	                method: 'GET',
+    	                success: function(data) {
+    	                    if (data===true) {
+    	                       window.location.href="band_manage.html"
+    	                    }else {
+    	                        BootstrapDialog.show({
+    	                            title:"提示",
+    	                            message:"删除失败",
+    	                            type:BootstrapDialog.TYPE_WARNING
+    	                        })
+    	                    }
+    	                },
+    	                error: function () {
+
+    	                }
+    	            })              
+    	            //执行方法  
+    	        }
+    	    }
+    	});
+    }
+
+    function doedit()
+    {
+	   	 console.log("开始！")
+	     var formdata = new FormData(document.getElementById("hform"));
+	     formdata.append("bandid",bId); 
+	     formdata.append("bandname",bname);
+	     formdata.append("bandicon",bIcon)
+	     formdata.append("banddetail",bDetail);
+	     formdata.append("bandremark",bRemark);	
+	     $.ajax({
+	         url:'BandServlet?cmd=edit',
+	         method:'POST',
+	         data:formdata,
+	         contentType: false, 
+	         processData: false,
+	         cache: false,
+	         success: function(data) {
+	        	 window.location.href="band_manage.html"
+	         },
+	         error: function () {
+	             BootstrapDialog.show({
+	                 title:"提示",
+	                 message:"保存失败",
+	                 type:BootstrapDialog.TYPE_WARNING
+	             })
+	         }
+	     })
+    }
+      
+    init();
+</script>
+
+</html>

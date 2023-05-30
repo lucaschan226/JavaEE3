@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>品牌管理</title>
+</head>
+
+<script src="./js/jquery.min.js"></script>
+
+<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="./css/bootstrap.min.css">
+
+<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+<link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="./js/bootstrap.min.js"></script>
+
+<style>
+    #SearchArea {
+        background-color: #f7f8f8;
+        padding-bottom: 30px;
+        width: 1200px;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+
+    #TableArea {
+        width: 1200px;
+        left: 0;
+        right: 0;
+        margin: auto;
+
+        padding-top: 50px;
+
+    }
+
+    .table {
+        border-collapse: separate;
+        border-spacing: 0px 10px;
+        text-align: left;
+    }
+
+    tr {
+        border-bottom: 1px sold black;
+    }
+
+    .form-item {
+        margin: 25px;
+    }
+</style>
+
+
+<body>
+    <div id="main">
+        <div id="SearchArea">
+            <div style="padding-top: 20px;">
+                <span class="form-inline form-item">
+                    <label for="city" class="control-label">品牌ID</label>
+                    <input type="text" name="s-bId" id="s-bId" class="form-control">
+                </span>
+
+                <span class="form-inline form-item">
+                    <label for="s-hname" class="control-label">品牌名称</label>
+                    <input type="text" name="s-bName" id="s-bName" class="form-control">
+                </span>
+
+
+                <span class="form-item">
+                    <span style="padding-right: 20px;"> <button class="btn btn-success">查询品牌</button> </span>
+                    <span> <button class="btn btn-primary" onclick="toAddBand()">新增品牌</button> </span>
+                </span>
+            </div>
+        </div>
+
+
+
+        <div id="TableArea">
+            <table class="table">
+                <tr style="text-align: center;">
+                    <th style="width: 100px;">品牌ID</th>
+                    <th style="width: 200px;">品牌名称</th>
+                    <th style="width: 200px;">品牌ICON</th>
+                    <th style="width: 300px;">品牌详情</th>
+                    <th style="width: 200px;">备注</th>
+                    <th style="width: 200px;">操作</th>
+                </tr>
+
+                <!-- 若使用JSTL 则可在此进行后续添加 请忽略script中的内容 -->
+
+                <!-- 
+                   表格元素示例格式： 
+                <tr>
+                    <td>${element.bandId}</td>
+                    <td>${element.bandName}</td>
+                    <td><img src='${element.bandIcon}' width='100px' width='30px''</td>
+                    <td>${element.bandDetail}</td>
+                    <td>${element.bandRemark}</td>
+                    <td>
+                        <button bId='${element.bandId}' class='btn btn-primary'>操作</button>
+                    </td>
+                </tr> 
+            -->
+
+            </table>
+        </div>
+
+
+    </div>
+</body>
+
+<script>
+
+    // 若使用ajax请求servlet，得到数组类型的array，使用loadAddr方法装载至表格
+
+
+    let bandArr = [
+        {
+            bandId: '1001',
+            bandName: '皇家',
+            bandIcon: 'images/homelogo.png',
+            bandDetail: '特别特别好',
+            bandRemark: '去年上市，很火爆',
+        },
+        {
+            bandId: '1001',
+            bandName: '皇家',
+            bandIcon: 'images/homelogo.png',
+            bandDetail: '特别特别好',
+            bandRemark: '去年上市，很火爆',
+        }
+    ]
+
+
+
+    function loadArr(arr) {
+        arr.forEach(element => {
+            let str = `
+                <tr>
+                    <td>${element.bandId}</td>
+                    <td>${element.bandName}</td>
+                    <td><img src='${element.bandIcon}' width='100px' width='30px''</td>
+                    <td>${element.bandDetail}</td>
+                    <td>${element.bandRemark}</td>
+                    <td>
+                        <button bId='${element.bandId}' onclick='toEditBand(this)'  class='btn btn-primary'>操作</button>
+                    </td>
+                </tr>
+            `
+            $(".table").append(str);
+        });
+    }
+
+    function toAddBand() {
+
+        window.location.href = 'add_band.html'
+    }
+
+    function toEditBand(obj) {
+        //此处将以参数的方式跳转到品牌详情界面，并在该页面以ajax的方式请求数据
+        //若使用JSTl 请在此处跳转到对应的servlet页面，并存储session后跳转到详情页面
+        window.location.href = 'edit_band.html?id=' + obj.getAttribute('bId');
+    }
+
+
+    function init() {
+
+    }
+
+
+    loadArr(bandArr);
+</script>
+
+
+</html>

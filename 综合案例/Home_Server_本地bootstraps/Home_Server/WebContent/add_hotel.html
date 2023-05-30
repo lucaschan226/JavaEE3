@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>添加酒店信息</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <script src="./js/jquery.min.js"></script>
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="./css/bootstrap-theme.min.css">
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="./js/bootstrap.min.js"></script>
+</head>
+
+<style>
+    #main {
+        margin-top: 20px;
+    }
+
+    #panel {
+        width: 600px;
+        /* 使得面板居中的Css */
+        margin: auto;
+        position: absolute;
+        left: 0;
+        right: 0;
+
+    }
+
+    .hbtn {
+        text-align: right;
+    }
+</style>
+
+<body>
+    <div id="main">
+        <div class="panel panel-default" id="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">添加酒店</h3>
+            </div>
+            <div class="panel-body">
+                <!-- 网页传统方式提交表单： 请在此填写需要提交到的页面 以及请求方式 -->
+                <form action="" method="">
+                    <div class="form-area form-group">
+                        <div>
+                            <span>酒店名称</span>
+                            <input type="text" name="hname" id="hname" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>城市</span>
+                            <!-- 此处需要使用JSTL 遍历出 数据库中存在的城市数据 一下为示例数据 -->
+                            <select class="form-control" name="hcity">
+                                <option value="北京">北京</option>
+                                <option value="上海">上海</option>
+                                <option value="广州">广州</option>
+                                <option value="深圳">深圳</option>
+                                <option value="天津">天津</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>酒店地址</span>
+                            <input type="text" name="haddr" id="haddr" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>酒店介绍</span>
+                            <input type="text" name="hdesc" id="hdesc" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>联系方式</span>
+                            <input type="text" name="hcontact" id="hcontact" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>酒店品牌</span>
+                            <!-- 此处需要使用 JSTL 获取目前数据库中存在的品牌 此处为示例-->
+                            <select class="form-control" name="hband">
+                                <option value="汉庭酒店">汉庭酒店</option>
+                                <option value="如家酒店">如家酒店</option>
+                                <option value="全季酒店">全季酒店</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>星级</span>
+                            <select class="form-control" name="hstar">
+                                <option value="5">5星级</option>
+                                <option value="4">4星级</option>
+                                <option value="3">3星级</option>
+                                <option value="2">2星级</option>
+                                <option value="1">1星级</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>售卖状态</span>
+                            <!-- 此处注意： 数据库中 在售 1  停售 0 -->
+                            <select class="form-control" name="hstatus">
+                                <option value="1">在售</option>
+                                <option value="0">停售</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>最晚预定时间</span>
+                            <input type="time" name="hordertime" id="hordertime" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-area form-group">
+                        <div>
+                            <span>最晚确定时间</span>
+                            <input type="time" name="hconfirmtime" id="hconfirmtime" class="form-control">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="panel-footer">
+                <div class="hbtn">
+                    <button class="btn btn-default" type="submit" onclick="go()">返回</button>
+
+                    <button style="margin-left: 10px;" class="btn btn-primary" type="submit"
+                        onclick="dosubmit()">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+
+    function go() {
+        window.history.go(-1);
+    }
+
+</script>
+
+</html>
